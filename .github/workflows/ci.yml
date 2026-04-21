@@ -1,0 +1,36 @@
+# Template CI — runs when this folder is adopted into its own repo.
+#
+# NOTE: while the template still uses `file:` refs to sibling
+# `@open-tomato/*` packages, `bun install` will fail in a clean CI
+# environment. Switch those refs to a published semver or GitHub source
+# before enabling this workflow.
+
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install
+        run: bun install --frozen-lockfile
+
+      - name: Lint
+        run: bun run lint
+
+      - name: Test
+        run: bun run test
+
+      - name: Build (type-check)
+        run: bun run build
