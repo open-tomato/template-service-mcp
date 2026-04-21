@@ -5,6 +5,7 @@
     "": {
       "name": "@open-tomato/template-service-mcp",
       "dependencies": {
+        "@modelcontextprotocol/sdk": "^1.10.0",
         "@open-tomato/logger": "file:../packages/shared/logger",
         "@open-tomato/mcp": "file:../packages/service/mcp",
         "@open-tomato/service-core": "file:../packages/service/service-core",

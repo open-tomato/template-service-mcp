@@ -19,4 +19,13 @@ export default [
       'no-undef': 'off',
     },
   },
+  {
+    // Tests are excluded from the production tsconfig (`**/*.test.ts`), so
+    // the import/typescript resolver cannot see them — disable the rule
+    // here. Test imports are validated at runtime by vitest.
+    files: ['tests/**/*.ts'],
+    rules: {
+      'import/no-unresolved': 'off',
+    },
+  },
 ];
