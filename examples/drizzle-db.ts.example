@@ -1,0 +1,22 @@
+// Opt-in example: Drizzle + Postgres client for an MCP service.
+//
+// See docs/database.md for the full adoption guide. At a glance:
+//
+//   1. bun add drizzle-orm pg
+//   2. bun add -d drizzle-kit @types/pg
+//   3. Copy this file into src/db/client.ts (drop the `.example` suffix).
+//   4. Add DATABASE_URL to .env.example, .env, and src/config.ts.
+//   5. Use `db` from tool handlers — close on SIGTERM via `closeDb()`.
+
+import process from 'node:process';
+
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { Pool } from 'pg';
+
+const pool = new Pool({ connectionString: process.env['DATABASE_URL']! });
+
+export const db = drizzle({ client: pool });
+
+export async function closeDb(): Promise<void> {
+  await pool.end();
+}
